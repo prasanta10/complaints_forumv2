@@ -1,0 +1,27 @@
+<% layout("layouts/boilerplate.ejs") -%>
+    <h1>ALL Complaints</h1>
+        <% for (let complaint of complaints) { %>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="<%= complaint.image[0].url %>" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= complaint.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= complaint.description %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= complaint.location %>
+                                </small>
+                            </p>
+                            <a href="complaints/<%= complaint._id %>" class="btn btn-primary">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>   

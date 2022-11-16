@@ -1,0 +1,39 @@
+<% layout("layouts/boilerplate.ejs") -%>
+
+<div class="row">
+    <h1 class="text-center">New Complaint</h1>
+    <div class="col-6 offset-3">
+        <form class="needs-validation" action="/complaints" method="POST" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="complaint[title]" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="complaint[location]" required>
+            </div>
+            <div class="mb-3 custom-file">
+                <label for="image" class="form-label">Upload images</label>
+                <input class="form-control" type="file" id="image" multiple name='image'>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="score">Complaint Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="score-label">$</span>
+                    <input type="text" class="form-control" id="score" placeholder="0.00" aria-label="score"
+                        aria-describedby="score-label" name="complaint[score]" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="complaint[description]" required></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Add Complaint</button>
+            </div>
+        </form>
+        <a href="/complaints">All Complaints</a>
+    </div>
+</div>
+
