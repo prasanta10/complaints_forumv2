@@ -4,7 +4,6 @@ const ExpressErrors  = require("../utils/ExpressErrors")
 
 module.exports.index = async (req, res) => {
     const complaints = await Complaint.find({}).populate('image')
-    console.log(complaints[0].image)
     res.render("complaints/index.ejs", { complaints })
 }
 
@@ -81,7 +80,7 @@ module.exports.upvote = async(req, res) => {
     const {id} = req.params;
     const complaint = await Complaint.findById(id);
     console.log(complaint.upvoteId)
-    if(complaint.downvoteId.includes(req.user._id)){
+    if(complaint.downvoteId.includes(req.user._id) && !complaint.upvoteId.includes(req.user._id)){
         complaint.score += 2;
         let i = complaint.downvoteId.indexOf(req.user._id);
         complaint.downvoteId = complaint.downvoteId.splice(i, 1);
@@ -103,7 +102,7 @@ module.exports.upvote = async(req, res) => {
 module.exports.downvote = async(req, res) => {
     const {id} = req.params;
     const complaint = await Complaint.findById(id);
-    if(complaint.upvoteId.includes(req.user._id)){
+    if(complaint.upvoteId.includes(req.user._id) && !complaint.downvoteId.includes(req.user._id)){
         complaint.score -= 2;
         let i = complaint.upvoteId.indexOf(req.user._id);
         complaint.upvoteId = complaint.upvoteId.splice(i, 1);
