@@ -30,8 +30,8 @@ const seedData = async () => {
                 fileName: 'yelpcamp/gzh4y5cefe6jmt8xpr0u',
               },
               {
-                url: 'https://res.cloudinary.com/dtme4g3zy/image/upload/v1666101569/yelpcamp/t0sb6kiqfttdb05vafu5.png',
-                fileName: 'yelpcamp/t0sb6kiqfttdb05vafu5',
+                url: 'https://res.cloudinary.com/dtme4g3zy/image/upload/v1666101500/yelpcamp/xnueggogtvkb5nhjncqz.webp',
+                fileName: 'yelpcamp/xnueggogtvkb5nhjncqz',
               }
             ],
             user: '63727f46a3051e01805dc4e0'
