@@ -3,9 +3,11 @@
         <% for (let complaint of complaints) { %>
             <div class="card mb-3">
                 <div class="row">
+                    <% if(complaint.image.length > 0 ) { %>
                     <div class="col-md-4">
                         <img src="<%= complaint.image[0].url %>" alt="" class="img-fluid">
                     </div>
+                    <% } %>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">
