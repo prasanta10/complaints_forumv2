@@ -83,7 +83,7 @@ module.exports.upvote = async(req, res) => {
     if(complaint.downvoteId.includes(req.user._id) && !complaint.upvoteId.includes(req.user._id)){
         complaint.score += 2;
         let i = complaint.downvoteId.indexOf(req.user._id);
-        complaint.downvoteId = complaint.downvoteId.splice(i, 1);
+        complaint.downvoteId.splice(i, 1);
         complaint.upvoteId.push(req.user._id);
     }
     else if(!complaint.upvoteId.includes(req.user._id))
@@ -105,7 +105,7 @@ module.exports.downvote = async(req, res) => {
     if(complaint.upvoteId.includes(req.user._id) && !complaint.downvoteId.includes(req.user._id)){
         complaint.score -= 2;
         let i = complaint.upvoteId.indexOf(req.user._id);
-        complaint.upvoteId = complaint.upvoteId.splice(i, 1);
+        complaint.upvoteId.splice(i, 1);
         complaint.downvoteId.push(req.user._id);
     }
     else if(!complaint.downvoteId.includes(req.user._id))
