@@ -93,7 +93,9 @@ module.exports.upvote = async(req, res) => {
     }
     else
     {
-        throw new ExpressErrors("YOU CANNOT DO THAT >:(",401);
+        complaint.score -= 1;
+        let i = complaint.upvoteId.indexOf(req.user._id);
+        complaint.upvoteId.splice(i, 1);
     }
     await complaint.save();
     res.redirect(`/complaints/${id}`);
@@ -115,7 +117,9 @@ module.exports.downvote = async(req, res) => {
     }
     else
     {
-        throw new ExpressErrors("YOU CANNOT DO THAT >:(",401);
+        complaint.score += 1;
+        let i = complaint.downvoteId.indexOf(req.user._id);
+        complaint.downvoteId.splice(i, 1);
     }
     await complaint.save();
     res.redirect(`/complaints/${id}`);
