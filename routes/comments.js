@@ -8,7 +8,7 @@ const comments = require("../controllers/comments")
 router.post("/", isLoggedIn, /*validateComplaint,*/ catchAsync(comments.addComment))
 
 //delete a comment
-router.delete("/:reviewId", isLoggedIn, isCommenter, catchAsync(comments.deleteComment))
+router.delete("/:commentId", isLoggedIn, isCommenter, catchAsync(comments.deleteComment))
 
 
 module.exports = router

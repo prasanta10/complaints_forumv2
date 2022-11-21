@@ -41,7 +41,7 @@ module.exports = {
                 return next(err);
             }
             req.flash('success', 'Logged Out');
-            res.redirect('/campgrounds');
+            res.redirect('/complaints');
         })
     }
 }

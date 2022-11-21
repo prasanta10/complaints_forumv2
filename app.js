@@ -1,5 +1,4 @@
-if(process.env.NODE_ENV !== 'production')
-{
+if (process.env.NODE_ENV !== 'production') {
     require("dotenv").config()
 }
 
@@ -18,8 +17,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const passport = require("passport")
 const User = require("./models/user")
-
-
+require("./passportGoogle")
 
 mongoose.connect('mongodb://localhost:27017/complaints-forum-v2')
     .then(() => {
@@ -56,15 +54,43 @@ app.use(passport.session())
 
 passport.use(User.createStrategy())
 
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+//passport.serializeUser(User.serializeUser())
+//passport.deserializeUser(User.deserializeUser())
 
 //all flash alerts assigned to response here(null assigned if nothing in req.flash)
-app.use((req, res, next) => {
-    res.locals.currentUser = req.user //session info of a user from passport
+app.use(async (req, res, next) => {
+    res.locals.currentUser = null
+    if(req.user){
+        const user = await User.findOne({googleID: req.user.id})
+        res.locals.currentUser = user //session info of a user from passport
+    }
     res.locals.success = req.flash("success")//for flash
     res.locals.error = req.flash('error')//same
     next()
+})
+
+app.get("/google/login", passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get("/oauth2/redirect/google", passport.authenticate('google', { failureRedirect: '/google/failedlogin', failureFlash: true, keepSessionInfo: true }),
+    function (req, res) {
+        res.redirect('/complaints');
+    })
+
+app.get("/google/failedlogin", (req, res) =>{
+    req.flash('error', "Only use SMVDU email IDs");
+    
+    res.redirect("/")
+})
+
+app.get('/google/logout', (req, res, next) => {
+    console.log(req)
+    req.logout(err => {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', 'Logged Out');
+        res.redirect('/complaints');
+    })
 })
 
 app.get("/", (req, res) => {

@@ -2,6 +2,7 @@
 const ExpressErrors = require("./utils/ExpressErrors")
 const Complaint = require("./models/complaint")
 const Comment = require("./models/comment")
+const User = require("./models/user")
 
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated())
@@ -39,7 +40,8 @@ module.exports.validateComplaint = (req, res, next) => {
 module.exports.isAuthor = async (req, res, next) => {
     const {id} = req.params
     const complaint = await Complaint.findById(id)
-    if(!complaint.user.equals(req.user._id))
+    const user = await User.findOne({googleID: req.user.id})
+    if(!complaint.user.equals(user._id))
     {
         req.flash('error', 'You are not authorised to do that!! >:(')
         return res.redirect(`/complaints/${id}`)
@@ -50,7 +52,10 @@ module.exports.isAuthor = async (req, res, next) => {
 module.exports.isCommenter = async (req, res, next) => {
     const {id, commentId} = req.params
     const comment = await Comment.findById(commentId)
-    if(!comment.user.equals(req.user._id))
+    const user = await User.findOne({googleID: req.user.id})
+    console.log(user)
+    console.log(comment.user)
+    if(!comment.user.equals(user._id))
     {
         req.flash('error', 'You are not authorised to do that!! >:(')
         return res.redirect(`/complaints/${id}`)

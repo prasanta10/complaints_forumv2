@@ -1,4 +1,5 @@
 const Complaint = require("../models/complaint");
+const User = require("../models/user")
 const {cloudinary} = require("../cloudinary/cloudinary.js")
 const ExpressErrors  = require("../utils/ExpressErrors")
 
@@ -13,7 +14,9 @@ module.exports.newComplaintForm = (req, res) => {
 
 module.exports.addComplaint = async (req, res, next) => {
     const complaint = Complaint(req.body.complaint)
-    complaint.user = req.user._id
+    const user = await User.findOne({googleID: req.user.id})
+    complaint.user = user._id
+    //complaint.user = req.user._id
     complaint.image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
     console.log(complaint);
     await complaint.save()
@@ -37,7 +40,7 @@ module.exports.editComplaint = async (req, res) => {
     console.log(req.body)
     const complaint = await Complaint.findByIdAndUpdate(id, req.body.complaint);
     const image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
-    camp.image.push(...image)
+    complaint.image.push(...image)
     await complaint.save();
     console.log(req.body.deleteImages)
     if (req.body.deleteImages) {
@@ -71,6 +74,12 @@ module.exports.showAComplaint = async (req, res) => {
 
 module.exports.deleteComplaint = async (req, res) => {
     const { id } = req.params;
+    const complaint = await Complaint.findById(id)
+    console.log(complaint)
+    for(let img of complaint.image)
+    {
+        cloudinary.uploader.destroy(img.fileName)
+    }
     await Complaint.findByIdAndDelete(id)
     req.flash('success', 'Complaint deleted')
     res.redirect("/complaints")
@@ -78,23 +87,24 @@ module.exports.deleteComplaint = async (req, res) => {
 
 module.exports.upvote = async(req, res) => {
     const {id} = req.params;
+    const user = await User.findOne({googleID: req.user.id})
     const complaint = await Complaint.findById(id);
     console.log(complaint.upvoteId)
-    if(complaint.downvoteId.includes(req.user._id) && !complaint.upvoteId.includes(req.user._id)){
+    if(complaint.downvoteId.includes(user._id) && !complaint.upvoteId.includes(user._id)){
         complaint.score += 2;
-        let i = complaint.downvoteId.indexOf(req.user._id);
+        let i = complaint.downvoteId.indexOf(user._id);
         complaint.downvoteId.splice(i, 1);
-        complaint.upvoteId.push(req.user._id);
+        complaint.upvoteId.push(user._id);
     }
-    else if(!complaint.upvoteId.includes(req.user._id))
+    else if(!complaint.upvoteId.includes(user._id))
     {
         complaint.score += 1;
-        complaint.upvoteId.push(req.user._id);
+        complaint.upvoteId.push(user._id);
     }
     else
     {
         complaint.score -= 1;
-        let i = complaint.upvoteId.indexOf(req.user._id);
+        let i = complaint.upvoteId.indexOf(user._id);
         complaint.upvoteId.splice(i, 1);
     }
     await complaint.save();
@@ -103,22 +113,23 @@ module.exports.upvote = async(req, res) => {
 }
 module.exports.downvote = async(req, res) => {
     const {id} = req.params;
+    const user = await User.findOne({googleID: req.user.id})
     const complaint = await Complaint.findById(id);
-    if(complaint.upvoteId.includes(req.user._id) && !complaint.downvoteId.includes(req.user._id)){
+    if(complaint.upvoteId.includes(user._id) && !complaint.downvoteId.includes(user._id)){
         complaint.score -= 2;
-        let i = complaint.upvoteId.indexOf(req.user._id);
+        let i = complaint.upvoteId.indexOf(user._id);
         complaint.upvoteId.splice(i, 1);
-        complaint.downvoteId.push(req.user._id);
+        complaint.downvoteId.push(user._id);
     }
-    else if(!complaint.downvoteId.includes(req.user._id))
+    else if(!complaint.downvoteId.includes(user._id))
     {
         complaint.score -= 1;
-        complaint.downvoteId.push(req.user._id);
+        complaint.downvoteId.push(user._id);
     }
     else
     {
         complaint.score += 1;
-        let i = complaint.downvoteId.indexOf(req.user._id);
+        let i = complaint.downvoteId.indexOf(user._id);
         complaint.downvoteId.splice(i, 1);
     }
     await complaint.save();

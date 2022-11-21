@@ -1,0 +1,30 @@
+{
+  id: '112809940733486808845',  
+  displayName: 'Nein11',        
+  name: { givenName: 'Nein11' },
+  emails: [ { value: 'prrishiv123@gmail.com', verified: true } ],
+  photos: [
+    {
+      value: 'https://lh3.googleusercontent.com/a/ALm5wu0Pb0GDwcbNhc-oovqQJ-BvYtBqK7jU41kK-zq7=s96-c'
+    }
+  ],
+  provider: 'google',
+  _raw: '{\n' +
+    '  "sub": "112809940733486808845",\n' +       
+    '  "name": "Nein11",\n' +
+    '  "given_name": "Nein11",\n' +
+    '  "picture": "https://lh3.googleusercontent.com/a/ALm5wu0Pb0GDwcbNhc-oovqQJ-BvYtBqK7jU41kK-zq7\\u003ds96-c",\n' +
+    '  "email": "prrishiv123@gmail.com",\n' +     
+    '  "email_verified": true,\n' +
+    '  "locale": "en"\n' +
+    '}',
+  _json: {
+    sub: '112809940733486808845',
+    name: 'Nein11',
+    given_name: 'Nein11',
+    picture: 'https://lh3.googleusercontent.com/a/ALm5wu0Pb0GDwcbNhc-oovqQJ-BvYtBqK7jU41kK-zq7=s96-c',
+    email: 'prrishiv123@gmail.com',
+    email_verified: true,
+    locale: 'en'
+  }
+}

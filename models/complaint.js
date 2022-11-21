@@ -20,7 +20,7 @@ const complaintSchema = Schema({
         fileName: String
     }],
     user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'User'
     },
     comments: [{
