@@ -20,7 +20,7 @@
         <ul class="navbar-nav ms-auto">
           <% if(!currentUser) { %>
           <li class="nav-item">
-            <a href="/google/login" class="nav-link">Sign In with Google</a>
+            <a href="/google/login" class="nav-link btn-success(min-width:992px) glbt(min-width:992px)"><img src="https://accounts.google.com/favicon.ico" alt="" width="24" height="24"> Sign In</a>
           </li>
           <!--
           <li class="nav-item">
@@ -29,7 +29,7 @@
           -->
           <% } else { %>
           <li class="nav-item">
-            <a href="/" class="nav-link">Hello There <%= currentUser.username %>! </a>
+            <a href="/" class="nav-link"> <%= currentUser.username %>! </a>
           </li>   
           <li class="nav-item">
             <a href="/google/logout" class="nav-link">Logout</a>
