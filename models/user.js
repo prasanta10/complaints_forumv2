@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     },
     googleID: {
         type: String
+    },
+    picture: {
+        type: String
     }
 })
 
