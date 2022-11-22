@@ -1,33 +1,33 @@
 <% layout("layouts/boilerplate.ejs") -%>
 
-    <div class="row">
+    <div class="row nc">
         <h1 class="text-center">Edit Complaint</h1>
         <div class="col-6 offset-3">
             <form action="/complaints/<%= complaint._id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">Title</label>
-                    <input class="form-control" type="text" id="title" name="complaint[title]" value="<%= complaint.title %>" required>
+                    <input class="form-control ncin1" type="text" id="title" name="complaint[title]" value="<%= complaint.title %>" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" id="location" name="complaint[location]" value="<%= complaint.location %>" required>
+                    <input class="form-control ncin2" type="text" id="location" name="complaint[location]" value="<%= complaint.location %>" required>
                 </div>
                 <div class="mb-3 custom-file">
                     <label for="image" class="form-label">Upload images</label>
-                    <input class="form-control" type="file" id="image" multiple name='image'>
+                    <input class="form-control ncin3" type="file" id="image" multiple name='image'>
                 </div>
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label class="form-label" for="score">Complaint Price</label>
                     <div class="input-group">
                         <span class="input-group-text" id="score-label">$</span>
                         <input type="number" step='0.01' class="form-control" id="score" placeholder="0.00" aria-label="score"
                             aria-describedby="score-label" name="complaint[score]" value="<%= complaint.score %>" required min="0">
                     </div>
-                </div>
+                </div> -->
     
                 <div class="mb-3">
                     <label class="form-label" for="description">Description</label>
-                    <textarea class="form-control" type="text" id="description" name="complaint[description]" required>
+                    <textarea class="form-control ncin4" type="text" id="description" name="complaint[description]" required>
                         <%= complaint.description %>
                     </textarea>
                 </div>
@@ -35,11 +35,11 @@
                     <% complaint.image.forEach( function(img, i) { %>
                     <img src="<%= img.url %>" alt="" class='img-thumbnail'>
                     <label for="img-<%= i %>">Delete?</label>
-                    <input type="checkbox" name="deleteImages[]" id="img-<%= i %>" value="<%= img.fileName %>">
+                    <input type="checkbox"  name="deleteImages[]" id="img-<%= i %>" value="<%= img.fileName %>">
                     <% }) %>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-info">Update Complaint</button>
+                    <button class="btn btn-info ncin5">Update Complaint</button>
                 </div>
             </form>
         </div>

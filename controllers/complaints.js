@@ -46,7 +46,9 @@ module.exports.editComplaint = async (req, res) => {
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename);
         }
+
         await complaint.updateOne({ $pull: { image: { fileName: { $in: req.body.deleteImages } } } })
+
     }
     await complaint.save();
     req.flash('success', "Edit Successful")

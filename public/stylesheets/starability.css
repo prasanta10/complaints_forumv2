@@ -187,20 +187,24 @@
     .starability-basic > label::before, .starability-basic > label::after {
       display: none;
     }
-  } */
+  } 
 .nv{
-  margin-right: 6rem !important; 
+  margin-right: 2rem !important; 
   /* font-family: 'Aboreto', cursive;  */
-  margin-left: -94px;
+  margin-left: 51px;
 }
 .nl{
-  margin-right: 100px !important;
+  margin-right: 32px !important;
 }
 .nba{
   /* font-family: 'Aboreto', cursive; */
 }
 .logo1 img{
-  width: 26% !important;
+  width: 38% !important;
+  margin-left: -51px;
+}
+.lg{
+  margin-right: -92px;
 }
 .ms-auto {
   padding-right: 21px;
@@ -211,9 +215,9 @@
 }
 .is{
   background: center / cover no-repeat url("/images/img-mini.jpg") ;
-  height: 80vh;
+  height: 100%;
   text-align: center;
-  margin: -14px -75px;
+  margin: 0px 0px;
   opacity: 1;
 }
 .cm img{
@@ -266,10 +270,12 @@
   font-family: 'Aboreto', cursive;
 }
 .nc{
-  background-color: rgb(150, 147, 147);
-  width: 147vh;
+  background-color: rgb(213, 208, 208);
+  width: 100vh;
   margin: auto;
-  margin-top: -16px;
+  margin-top: 0px;
+  border-radius: 27px;
+  
 }
 .nc h1{
   margin-top: 22px;
@@ -303,4 +309,45 @@
   text-align: center;
   padding-top: 11px;
   padding-bottom: 5px;
+}
+.glbt{
+  color: black !important;
+  background-color: #9ea2a7;
+  border-radius: 12px;
+  padding: 5px;
+}
+.cpv h1{
+  opacity: 0.85;
+}
+@media only screen and (max-width: 991px){
+  .is{
+    height: 100%;
+  }
+  .nc{
+    background-color: rgb(213, 208, 208);
+    width: auto;
+    padding: 0px;
+    margin-top: 2px;
+    border-radius: 20px;
+  }
+  .ncin1{
+    margin-top: -10px;
+    margin-left: -47px;
+    width: 245px;
+  }
+  .ncin2{
+    margin-top: -10px;
+    margin-left: -47px;
+    width: 245px;
+  }
+  .ncin3{
+    margin-top: -10px;
+    margin-left: -47px;
+    width: 245px;
+  }
+  .ncin4{
+    margin-top: -10px;
+    margin-left: -47px;
+    width: 245px;
+  }
 }
