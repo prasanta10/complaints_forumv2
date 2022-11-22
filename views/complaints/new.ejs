@@ -3,14 +3,23 @@
 <div class="row nc">
     <h1 class="text-center">New Complaint</h1>
     <div class="col-6 offset-3">
-        <form class="needs-validation" action="/complaints" method="POST" novalidate enctype="multipart/form-data">
+        <form class="needs-validation" action="/complaints" method="POST" novalidate autocomplete="off" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control ncin1" type="text" id="title" name="complaint[title]" required>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input class="form-control ncin2" type="text" id="location" name="complaint[location]" required>
+                <select class="form-control ncin3" id="location" name="complaint[location]" required >
+                    <option disabled selected value> -- select an option -- </option>
+                    <option>Trikuta Hostel</option>
+                    <option>Kailash Hostel</option>
+                    <option>Basholi Hostel</option>
+                    <option>Vindhyanchal Hostel</option>
+                    <option>Nilgiri Hostel</option>
+                    <option>Shivalik Hostel</option>
+                    <option>Vaishnavi Hostel</option>
+                  </select>
             </div>
             <div class="mb-3 custom-file">
                 <label for="image" class="form-label">Upload images</label>
