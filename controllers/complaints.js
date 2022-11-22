@@ -41,14 +41,16 @@ module.exports.editComplaint = async (req, res) => {
     const complaint = await Complaint.findByIdAndUpdate(id, req.body.complaint);
     const image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
     complaint.image.push(...image)
-    await complaint.save();
     console.log(req.body.deleteImages)
     if (req.body.deleteImages) {
         for (let filename of req.body.deleteImages) {
             await cloudinary.uploader.destroy(filename);
         }
-        await Complaint.updateOne({ $pull: { image: { fileName: { $in: req.body.deleteImages } } } })
+
+        await complaint.updateOne({ $pull: { image: { fileName: { $in: req.body.deleteImages } } } })
+
     }
+    await complaint.save();
     req.flash('success', "Edit Successful")
     res.redirect(`/complaints/${id}`)
 }
