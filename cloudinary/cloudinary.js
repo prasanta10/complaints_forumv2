@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-    folder: 'yelpcamp',
+    folder: 'complaintsForum',
     allowed_formats: ['jpeg', 'png', 'jpg', 'webp']
 }
 })
