@@ -40,7 +40,7 @@
                             <li class="list-group-item">
                                 Created By: <%= complaint.user.username%>
                             </li>
-                            <li class="list-group-item">$<%= complaint.score%>/night</li>
+                            <li class="list-group-item"><%= complaint.score%> Upvotes</li>
                         </ul>
                         <% if(currentUser && complaint.user.equals(currentUser)) { %>
                             <div class="card-body">

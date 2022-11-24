@@ -16,6 +16,7 @@ module.exports.addComplaint = async (req, res, next) => {
     const complaint = Complaint(req.body.complaint)
     const user = await User.findOne({googleID: req.user.id})
     complaint.user = user._id
+    complaint.score = 0;
     //complaint.user = req.user._id
     complaint.image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
     console.log(complaint);
