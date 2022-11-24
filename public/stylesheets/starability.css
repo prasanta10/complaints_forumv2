@@ -373,9 +373,24 @@
 .dd{
   margin:0 auto 1.2rem auto;
 }
-@media  screen and (max-width:420px) {
+
+.comp{
+  width:50vw;border-radius: 0.6rem;
+}
+.card-img-top{
+  padding:0 1.2rem;
+}
+@media  screen and (max-width:700px) {
   .complaint-image{
     height:15rem;
+    width:25rem;
+  }
+  .comp{
     width:20rem;
+  }
+}
+@media screen and (max-width:474px){
+  .filter-button{
+    margin-top:1.2rem;
   }
 }
