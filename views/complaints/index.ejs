@@ -13,12 +13,12 @@
               <option value="Vaishnavi Hostel">Vaishnavi Hostel</option>
               <option value="Basholi Hostel">Basholi Hostel</option>
             </select>
-            <button class="btn btn-info btn-sm" style="margin-left:0.8rem;">Filter</button>
+            <button class="btn btn-info btn-sm filter-button" style="margin-left:0.8rem;">Filter</button>
           </form>
       </div>
         <div class="cpv">
             <% for (let complaint of complaints) { %>
-                <div class="card mb-3" style="width:50vw;border-radius: 0.6rem;">
+                <div class="card mb-3 comp">
                     <a href="complaints/<%= complaint._id %>" class="link">
                         <div class="row">
                             <div class="card-ti">
@@ -32,7 +32,7 @@
                                 </h4>
                             </div>
                             <% if(complaint.image.length> 0 ) { %>
-                                <div class="col-md-12 card-img-top" style="padding:2rem 4rem;">
+                                <div class="col-md-12 card-img-top">
                                     <img src="<%= complaint.image[0].url %>" alt="" class="img-fluid complaint-image">
                                 </div>
                                 <% } %>
