@@ -1,31 +1,54 @@
-<div class="container cpv">   
+<div class="container allcomp">
     <% layout("layouts/boilerplate.ejs") -%>
-        <h1>ALL Complaints</h1>
+    <div class="dropdown dd">
+        <form >
+            <label for="Hostel" style="margin-right: 20px;">Filter By Hostel Name:</label>
+            <select id="hostels" name="hostel">
+              <option value="All">All</option>
+              <option value="Trikuta Hostel">Trikuta Hostel</option>
+              <option value="Vindhyanchal Hostel">Vindhyanchal Hostel</option>
+              <option value="Kailash Hostel">Kailash Hostel</option>
+              <option value="Nilgiri Hostel">Nilgiri Hostel</option>
+              <option value="Shivalik Hostel">Shivalik Hostel</option>
+              <option value="Vaishnavi Hostel">Vaishnavi Hostel</option>
+              <option value="Basholi Hostel">Basholi Hostel</option>
+            </select>
+            <button class="btn btn-info btn-sm" style="margin-left:0.8rem;">Filter</button>
+          </form>
+      </div>
+        <div class="cpv">
             <% for (let complaint of complaints) { %>
-                <div class="card mb-3">
-                    <div class="row">
-                        <% if(complaint.image.length > 0 ) { %>
-                        <div class="col-md-4">
-                            <img src="<%= complaint.image[0].url %>" alt="" class="img-fluid">
-                        </div>
-                        <% } %>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">
+                <div class="card mb-3" style="width:50vw;border-radius: 0.6rem;">
+                    <a href="complaints/<%= complaint._id %>" class="link">
+                        <div class="row">
+                            <div class="card-ti">
+                                <p>Uploaded by :<%= complaint.user.username%>
+                                </p>
+                                <h4 class="card-title">
                                     <%= complaint.title %>
-                                </h5>
-                                <p class="card-text">
-                                    <%= complaint.description %>
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        <%= complaint.location %>
-                                    </small>
-                                </p>
-                                <a href="complaints/<%= complaint._id %>" class="btn btn-primary">View</a>
+                                        <p style="opacity:0.8;font-size:0.9rem;padding-top:0.6rem;padding-left:1.3rem">
+                                            <%= complaint.description.substring(0,30)%>...
+                                        </p>
+                                </h4>
                             </div>
+                            <% if(complaint.image.length> 0 ) { %>
+                                <div class="col-md-12 card-img-top" style="padding:2rem 4rem;">
+                                    <img src="<%= complaint.image[0].url %>" alt="" class="img-fluid complaint-image">
+                                </div>
+                                <% } %>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <p class="card-text" style="text-align:right;">
+                                                <small class="text-muted">
+                                                    <%= complaint.location %>
+                                                </small>
+                                            </p>
+                                        </div>
+                                    </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-            <% } %>   
-        </div>             
+                <% } %>
+        </div>
+</div>
+</div>

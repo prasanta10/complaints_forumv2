@@ -300,10 +300,12 @@
   /* border: 2px solid gray; */
   border-radius: 9px;
 }
-/* .cpv{
-  background-color: rgb(150, 147, 147) ;
-  margin-top: -13px;
-} */
+.cpv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .cpv h1{
   /* margin: auto; */
   text-align: center;
@@ -324,7 +326,7 @@
     height: 100%;
   }
   .nc{
-    background-color: rgb(213, 208, 208);
+    background-color: rgba(213, 208, 208,0.788);
     width: auto;
     padding: 0px;
     margin-top: 2px;
@@ -349,5 +351,31 @@
     margin-top: -10px;
     margin-left: -47px;
     width: 245px;
+  }
+}
+
+.card-ti{
+  padding:0.5rem 1.5rem;
+  text-align:left;
+}
+
+.link{
+  text-decoration: none;
+  color:rgb(108, 107, 107);
+}
+
+.link:hover{
+  text-decoration: none;
+  color:black;
+  cursor:pointer;
+}
+
+.dd{
+  margin:0 auto 1.2rem auto;
+}
+@media  screen and (max-width:420px) {
+  .complaint-image{
+    height:15rem;
+    width:20rem;
   }
 }

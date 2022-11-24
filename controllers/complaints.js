@@ -4,7 +4,7 @@ const {cloudinary} = require("../cloudinary/cloudinary.js")
 const ExpressErrors  = require("../utils/ExpressErrors")
 
 module.exports.index = async (req, res) => {
-    const complaints = await Complaint.find({}).populate('image')
+    const complaints = await Complaint.find({}).populate('image').populate('user')
     res.render("complaints/index.ejs", { complaints })
 }
 
