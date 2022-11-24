@@ -326,7 +326,7 @@
     height: 100%;
   }
   .nc{
-    background-color: rgba(213, 208, 208,0.788);
+    background-color: rgb(213, 208, 208);
     width: auto;
     padding: 0px;
     margin-top: 2px;
