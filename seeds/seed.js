@@ -34,7 +34,7 @@ const seedData = async () => {
                 fileName: 'yelpcamp/xnueggogtvkb5nhjncqz',
               }
             ],
-            user: '637b5231859290a5da5ec842'
+            user: '637d14ff68e2522643e41eed'
         }
         data.push(complaint)
     }
