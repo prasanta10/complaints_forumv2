@@ -215,6 +215,7 @@
 }
 .is{
   background: center / cover no-repeat url("/images/img-mini.jpg") ;
+  background-attachment: fixed;
   height: 100%;
   text-align: center;
   margin: 0px 0px;
