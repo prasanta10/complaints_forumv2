@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="/stylesheets/starability.css">
 
     <div class="row show-comp">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6">
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <% complaint.image.forEach((img, i) => { %>
@@ -67,7 +67,7 @@
 
 
         </div>
-        <div class="col-6">
+        <div class="col-sm-12 col-md-6">
             <% if(currentUser) { %>
                 <h2>Add a Comment:</h2>
                 <form action="/complaints/<%=complaint._id%>/comments" method="POST" class="mb-3 needs-validation"
