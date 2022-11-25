@@ -215,6 +215,7 @@
 }
 .is{
   background: center / cover no-repeat url("/images/img-mini.jpg") ;
+  background-attachment: fixed;
   height: 100%;
   text-align: center;
   margin: 0px 0px;
@@ -324,7 +325,7 @@
     height: 100%;
   }
   .nc{
-    background-color: rgb(213, 208, 208);
+    background-color: rgba(213, 208, 208, 0.788);
     width: auto;
     padding: 0px;
     margin-top: 2px;
