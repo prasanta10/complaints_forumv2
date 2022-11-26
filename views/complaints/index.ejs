@@ -1,20 +1,31 @@
 <div class="container allcomp">
     <% layout("layouts/boilerplate.ejs") -%>
     <div class="dropdown dd">
-        <form >
-            <label for="Hostel" style="margin-right: 20px;">Filter By Hostel Name:</label>
-            <select id="hostels" name="hostel">
-              <option value="All">All</option>
-              <option value="Trikuta Hostel">Trikuta Hostel</option>
-              <option value="Vindhyanchal Hostel">Vindhyanchal Hostel</option>
-              <option value="Kailash Hostel">Kailash Hostel</option>
-              <option value="Nilgiri Hostel">Nilgiri Hostel</option>
-              <option value="Shivalik Hostel">Shivalik Hostel</option>
-              <option value="Vaishnavi Hostel">Vaishnavi Hostel</option>
-              <option value="Basholi Hostel">Basholi Hostel</option>
+        <form action="/complaints">
+            <label for="filter" style="margin-right: 20px;">Look for complaints from:</label>
+            <select id="filter" name="filter">
+              <option value="All" <%= filter === "All" ? "selected" : "" %>>All</option>
+              <option value="Trikuta Hostel" <%= filter === "Trikuta Hostel" ? "selected" : "" %>>Trikuta Hostel</option>
+              <option value="Vindhyanchal Hostel" <%= filter === "Vindhyanchal Hostel" ? "selected" : "" %>>Vindhyanchal Hostel</option>
+              <option value="Kailash Hostel" <%= filter === "Kailash Hostel" ? "selected" : "" %>>Kailash Hostel</option>
+              <option value="Nilgiri Hostel" <%= filter === "Nilgiri Hostel" ? "selected" : "" %>>Nilgiri Hostel</option>
+              <option value="Shivalik Hostel" <%= filter === "Shivalik Hostel" ? "selected" : "" %>>Shivalik Hostel</option>
+              <option value="Vaishnavi Hostel" <%= filter === "Vaishnavi Hostel" ? "selected" : "" %>>Vaishnavi Hostel</option>
+              <option value="Basholi Hostel" <%= filter === "Basholi Hostel" ? "selected" : "" %>>Basholi Hostel</option>
             </select>
-            <button class="btn btn-info btn-sm filter-button" style="margin-left:0.8rem;">Filter</button>
+            <label for="sort" style="margin-right: 20px;">Sort:</label>
+            <select id="sort" name="sort">
+              <option value="Highest" <%= sort === "Highest" ? "selected" : "" %> >Highest Score</option>
+              <option value="Lowest" <%= sort === "Lowest" ? "selected" : "" %>>Lowest Score</option>
+              <option value="Newest" <%= sort === "Newest" ? "selected" : "" %>>Newest First</option>
+              <option value="Oldest" <%= sort === "Oldest" ? "selected" : "" %>>Oldest First</option>
+            </select>
+            <button class="btn btn-info btn-sm filter-button" style="margin-left:0.8rem;">Apply Filters</button>
           </form>
+      </div>
+      <div class="dropdown dd">
+        <form action="/complaints">
+            
       </div>
         <div class="cpv">
             <% for (let complaint of complaints) { %>

@@ -1,11 +1,43 @@
 const Complaint = require("../models/complaint");
 const User = require("../models/user")
 const {cloudinary} = require("../cloudinary/cloudinary.js")
-const ExpressErrors  = require("../utils/ExpressErrors")
-
+const ExpressErrors  = require("../utils/ExpressErrors");
 module.exports.index = async (req, res) => {
-    const complaints = await Complaint.find({}).populate('image').populate('user')
-    res.render("complaints/index.ejs", { complaints })
+    const {filter = "All", sort = "Highest"} = req.query;
+    let sortSet
+    switch (sort) {
+        case "Highest": 
+        case undefined: {
+            sortSet = {score: -1}
+            break;
+        }
+        case "Lowest": {
+            sortSet = {score: 1}
+            break;
+        }
+        case "Newest":{
+            sortSet = {createdAt: -1}
+            break;
+        }
+        case "Oldest":{
+            sortSet = {createdAt: 1}
+            break;
+        }
+    }
+    console.log(sortSet)
+    if(filter != undefined && filter != "All")
+    {
+        const complaints = await Complaint.find({location: req.query.filter}).populate('image').populate('user').sort(sortSet)
+        console.log(complaints)
+        res.render("complaints/index.ejs", { complaints, filter, sort })
+
+    }
+    else{
+        console.log(sort)
+        const complaints = await Complaint.find({}).populate('image').populate('user').sort(sortSet)
+        res.render("complaints/index.ejs", { complaints ,filter, sort})
+
+    }
 }
 
 module.exports.newComplaintForm = (req, res) => {

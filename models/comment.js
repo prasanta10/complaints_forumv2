@@ -7,6 +7,10 @@ const commentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'//ref here refers to the model name. use the attribute name when using populate() method
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 })
 

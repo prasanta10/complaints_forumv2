@@ -26,7 +26,11 @@ const complaintSchema = Schema({
     comments: [{
         type: mongoose.Types.ObjectId,
         ref: 'Comment'
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 complaintSchema.post('findOneAndDelete', async (doc) => {
