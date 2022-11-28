@@ -19,7 +19,7 @@ const passport = require("passport")
 const User = require("./models/user")
 require("./passportGoogle")
 
-mongoose.connect('mongodb://localhost:27017/complaints-forum-v2')
+mongoose.connect('mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
         console.log("Connected to mongoose")
     })
