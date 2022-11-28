@@ -21,7 +21,7 @@ const User = require("./models/user");
 const { Module } = require("module");
 require("./passportGoogle")
 
-mongoose.connect('mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGO_ATLAS_URL)
     .then(() => {
         console.log("Connected to mongoose")
     })
@@ -36,7 +36,7 @@ app.use(methodOverride("_method"))
 app.engine('ejs', ejsMate)
 
 const store = MongoStore.create({
-    mongoUrl: 'mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority',
+    mongoUrl: process.env.MONGO_ATLAS_URL,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: 'squirrel'
