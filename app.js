@@ -114,6 +114,6 @@ app.use((err, req, res, next) => {
     res.render("error.ejs", { error: err })
 })
 
-app.listen(5000, () => {
+app.listen(process.env.PORT||5000, () => {
     console.log("listening on port 5000")
 })
