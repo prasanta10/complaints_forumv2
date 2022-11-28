@@ -19,7 +19,7 @@ const passport = require("passport")
 const User = require("./models/user")
 require("./passportGoogle")
 
-mongoose.connect('mongodb://localhost:27017/complaints-forum-v2')
+mongoose.connect('mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
         console.log("Connected to mongoose")
     })
@@ -114,6 +114,6 @@ app.use((err, req, res, next) => {
     res.render("error.ejs", { error: err })
 })
 
-app.listen(5000, () => {
+app.listen(process.env.PORT||5000, () => {
     console.log("listening on port 5000")
 })
