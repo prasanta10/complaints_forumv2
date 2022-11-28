@@ -14,6 +14,7 @@ const complaintRouter = require("./routes/complaints")
 const commentRouter = require("./routes/comments")
 const userRouter = require("./routes/users")
 const session = require("express-session")
+const MongoStore = require("connect-mongo")
 const flash = require("connect-flash")
 const passport = require("passport")
 const User = require("./models/user");
@@ -34,8 +35,17 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride("_method"))
 app.engine('ejs', ejsMate)
 
+const store = MongoStore.create({
+    mongoUrl: 'mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority',
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'squirrel'
+    }
+})
+
 const sessionConfig =
 {
+    store,
     secret: 'veryClassifiedMuch$ecr@t',
     resave: false,
     saveUninitialized: true,
