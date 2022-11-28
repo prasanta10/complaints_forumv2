@@ -13,14 +13,14 @@
               <option value="Vaishnavi Hostel" <%= filter === "Vaishnavi Hostel" ? "selected" : "" %>>Vaishnavi Hostel</option>
               <option value="Basholi Hostel" <%= filter === "Basholi Hostel" ? "selected" : "" %>>Basholi Hostel</option>
             </select>
-            <label for="sort" style="margin-right: 20px;">Sort:</label>
+            <label for="sort" >Sort:</label>
             <select id="sort" name="sort">
               <option value="Highest" <%= sort === "Highest" ? "selected" : "" %> >Highest Score</option>
               <option value="Lowest" <%= sort === "Lowest" ? "selected" : "" %>>Lowest Score</option>
               <option value="Newest" <%= sort === "Newest" ? "selected" : "" %>>Newest First</option>
               <option value="Oldest" <%= sort === "Oldest" ? "selected" : "" %>>Oldest First</option>
             </select>
-            <button class="btn btn-info btn-sm filter-button" style="margin-left:0.8rem;">Apply Filters</button>
+            <button class="btn btn-success filter-button" style="margin-left:0.8rem;">Apply Filters</button>
           </form>
       </div>
       <div class="dropdown dd">
