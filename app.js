@@ -16,7 +16,8 @@ const userRouter = require("./routes/users")
 const session = require("express-session")
 const flash = require("connect-flash")
 const passport = require("passport")
-const User = require("./models/user")
+const User = require("./models/user");
+const { Module } = require("module");
 require("./passportGoogle")
 
 mongoose.connect('mongodb+srv://prasanta:test123@cluster0.1eshnwp.mongodb.net/?retryWrites=true&w=majority')
@@ -117,3 +118,5 @@ app.use((err, req, res, next) => {
 app.listen(process.env.PORT||5000, () => {
     console.log("listening on port 5000")
 })
+
+module.exports = app;
