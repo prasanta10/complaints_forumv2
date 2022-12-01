@@ -2,7 +2,9 @@
     <% layout("layouts/boilerplate.ejs") -%>
     <div class="dropdown dd">
         <form action="/complaints">
-            <label for="filter" style="margin-right: 20px;">Look for complaints from:</label>
+            <label for="filter" style="margin-right: 20px;"><h3>Look for complaints from</h3></label>
+            <br>
+            <label for="sort" ><h5>Sort:</h5></label>
             <select id="filter" name="filter">
               <option value="All" <%= filter === "All" ? "selected" : "" %>>All</option>
               <option value="Trikuta Hostel" <%= filter === "Trikuta Hostel" ? "selected" : "" %>>Trikuta Hostel</option>
@@ -13,7 +15,7 @@
               <option value="Vaishnavi Hostel" <%= filter === "Vaishnavi Hostel" ? "selected" : "" %>>Vaishnavi Hostel</option>
               <option value="Basholi Hostel" <%= filter === "Basholi Hostel" ? "selected" : "" %>>Basholi Hostel</option>
             </select>
-            <label for="sort" >Sort:</label>
+            <!-- <label for="sort" >Sort:</label> -->
             <select id="sort" name="sort">
               <option value="Highest" <%= sort === "Highest" ? "selected" : "" %> >Highest Score</option>
               <option value="Lowest" <%= sort === "Lowest" ? "selected" : "" %>>Lowest Score</option>
@@ -49,7 +51,7 @@
                                 <% } %>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <p class="card-text" style="text-align:right;">
+                                            <p class="card-text" style="text-align:left;">
                                                 <small class="text-muted">
                                                     <%= complaint.location %>
                                                 </small>
