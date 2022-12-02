@@ -469,6 +469,9 @@
   font-weight:bolder;
   padding-bottom: 4rem;
 }
+.report-btn{
+  margin-top:1rem;
+=======
 @media only screen and (max-width:364px){
   .nv{
     margin-right: 1rem !important;
@@ -499,4 +502,5 @@
   .ms-auto{
     padding-right: 0px !important;
   }
+
 }
