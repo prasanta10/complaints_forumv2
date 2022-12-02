@@ -451,7 +451,7 @@
 @media screen and (max-width: 610px){
 .present-block-img {
   height:15rem;
-    width:25rem;
+    width: 21rem;
 }
 .head{
   padding-bottom: 2rem;
@@ -468,4 +468,35 @@
 .contact-me{
   font-weight:bolder;
   padding-bottom: 4rem;
+}
+@media only screen and (max-width:364px){
+  .nv{
+    margin-right: 1rem !important;
+  }
+}
+#sort{
+  margin-left: 31px;
+  margin-right: -10px;
+}
+.text-muted{
+  text-align: end;
+}
+.filter-button{
+  border-radius: 6px;
+}
+#filter{
+  border-radius: 6px;
+}
+#sort{
+  border-radius: 6px;
+  width: 132px;
+  text-align: center;
+}
+@media only screen and (max-width:364px){
+  .nl{
+    margin-right: 0px !important;
+  }
+  .ms-auto{
+    padding-right: 0px !important;
+  }
 }
