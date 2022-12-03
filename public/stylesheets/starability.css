@@ -471,10 +471,10 @@
 }
 .report-btn{
   margin-top:1rem;
-=======
+}
 @media only screen and (max-width:364px){
   .nv{
-    margin-right: 1rem !important;
+    margin-right: 0rem !important;
   }
 }
 #sort{
@@ -495,12 +495,23 @@
   width: 132px;
   text-align: center;
 }
-@media only screen and (max-width:364px){
+@media only screen and  (max-width:394px) {
   .nl{
     margin-right: 0px !important;
   }
   .ms-auto{
     padding-right: 0px !important;
   }
+  .navbar-toggler{
+    margin-right: -9px;
+  }
 
+}
+@media only screen and  (max-width:420px){
+  .filter-button {
+    margin-top: -8px;
+  }
+  #sort{
+    margin-top: 23px;
+  }  
 }
