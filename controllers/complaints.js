@@ -88,8 +88,19 @@ module.exports.editComplaint = async (req, res) => {
 
 module.exports.showAComplaint = async (req, res) => {
     let user;
-    if(req.user.id){
+    let upvoted, downvoted, reported;
+    if (req.user !== undefined) {
         user = await User.findOne({ googleID: req.user.id })
+        if (complaint.upvoteId.includes(user._id)) {
+            upvoted = true
+        }
+        if (complaint.downvoteId.includes(user._id)) {
+            downvoted = true
+        }
+        if (complaint.reportId.includes(user._id)) {
+
+            reported = true
+        }
     }
     const complaint = await Complaint.findById(req.params.id)
         .populate(
@@ -106,20 +117,6 @@ module.exports.showAComplaint = async (req, res) => {
         res.redirect('/complaints')
     }
     console.log(complaint.reportId)
-    let upvoted, downvoted, reported;
-    if(complaint.upvoteId.includes(user._id))
-    {
-        upvoted = true
-    }
-    if(complaint.downvoteId.includes(user._id))
-    {
-        downvoted = true
-    }
-    if(complaint.reportId.includes(user._id))
-    {
-        
-        reported = true
-    }
     res.render("complaints/show.ejs", { complaint, upvoted, downvoted, reported })
 }
 
@@ -198,7 +195,7 @@ module.exports.report = async (req, res) => {
             res.redirect("/complaints")
         }
     }
-    else{
+    else {
         complaint.reportCount += 1;
         let i = complaint.reportId.indexOf(user._id);
         complaint.reportId.splice(i, 1);
