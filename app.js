@@ -65,9 +65,6 @@ app.use(passport.session())
 
 passport.use(User.createStrategy())
 
-//passport.serializeUser(User.serializeUser())
-//passport.deserializeUser(User.deserializeUser())
-
 //all flash alerts assigned to response here(null assigned if nothing in req.flash)
 app.use(async (req, res, next) => {
     res.locals.currentUser = null

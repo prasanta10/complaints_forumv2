@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router({mergeParams: true})
 const catchAsync = require("../utils/catchAsync")
-const {isLoggedIn, /*validateComplaint,*/ isAuthor} = require("../middleware")
+const {isLoggedIn, isAuthor} = require("../middleware")
 const complaints = require("../controllers/complaints");
 const {storage} = require("../cloudinary/cloudinary")
 const multer = require("multer")
@@ -12,12 +12,12 @@ module.exports = router
 
 router.route("/")
     .get(catchAsync(complaints.index))
-    .post(isLoggedIn, upload.array('image'), /*validateComplaint,*/ catchAsync(complaints.addComplaint))
+    .post(isLoggedIn, upload.array('image'), catchAsync(complaints.addComplaint))
 
 router.get("/new", isLoggedIn, complaints.newComplaintForm)
 
 router.route("/:id")
-    .put(isLoggedIn, upload.array('image'), /*validateComplaint,*/ catchAsync(complaints.editComplaint))
+    .put(isLoggedIn, upload.array('image'), catchAsync(complaints.editComplaint))
     .get(catchAsync(complaints.showAComplaint))
     .delete(isLoggedIn, isAuthor, catchAsync(complaints.deleteComplaint))
 

@@ -12,30 +12,6 @@ module.exports.isLoggedIn = (req, res, next) => {
     }
     next()
 }
-
-module.exports.validateComplaint = (req, res, next) => {
-    //for joi validation
-    const { error } = campSchema.validate(req.body)
-    if (error) {
-        throw new ExpressErrors(error.details.map(el => el.message).join(","), 400)
-    }
-    else{
-        next()
-    }
-}
-
-module.exports.validateComplaint = (req, res, next) => {
-    //for joi validation
-    console.log(req.body)
-    const { error } = reviewSchema.validate(req.body)
-    if (error) {
-        throw new ExpressErrors(error.details.map(el => el.message).join(","), 400)
-    }
-    else{
-        next()
-    }
-}
-
 module.exports.isAuthor = async (req, res, next) => {
     const {id} = req.params
     const complaint = await Complaint.findById(id)
