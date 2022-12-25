@@ -87,7 +87,10 @@ module.exports.editComplaint = async (req, res) => {
 }
 
 module.exports.showAComplaint = async (req, res) => {
-    const user = await User.findOne({ googleID: req.user.id })
+    let user;
+    if(req.user.id){
+        user = await User.findOne({ googleID: req.user.id })
+    }
     const complaint = await Complaint.findById(req.params.id)
         .populate(
             {
