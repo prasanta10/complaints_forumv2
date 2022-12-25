@@ -89,6 +89,16 @@ module.exports.editComplaint = async (req, res) => {
 module.exports.showAComplaint = async (req, res) => {
     let user;
     let upvoted, downvoted, reported;
+    const complaint = await Complaint.findById(req.params.id)
+        .populate(
+            {
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                }
+            }
+        )
+        .populate('user')
     if (req.user !== undefined) {
         user = await User.findOne({ googleID: req.user.id })
         if (complaint.upvoteId.includes(user._id)) {
@@ -102,16 +112,6 @@ module.exports.showAComplaint = async (req, res) => {
             reported = true
         }
     }
-    const complaint = await Complaint.findById(req.params.id)
-        .populate(
-            {
-                path: 'comments',
-                populate: {
-                    path: 'user'
-                }
-            }
-        )
-        .populate('user')
     if (!complaint) {
         req.flash('error', "Cannot not find that complaint")
         res.redirect('/complaints')
