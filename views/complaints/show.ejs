@@ -53,13 +53,13 @@
                             <% if(currentUser) { %>
                                 <div class="card-body">
                                     <form class="d-inline" action="/complaints/<%=complaint._id%>/up?_method=PUT" method="POST">
-                                        <button class="btn btn-success">UpVote</button>
+                                        <button class="btn btn-success">UpVote<%= upvoted ? "d" : "" %></button>
                                     </form>
                                     <form class="d-inline" action="/complaints/<%=complaint._id%>/down?_method=PUT" method="POST">
-                                        <button class="btn btn-danger">DownVote</button>
+                                        <button class="btn btn-danger">DownVote<%= downvoted ? "d" : "" %></button>
                                     </form>
-                                    <form>
-                                        <button class="btn btn-danger report-btn">Report</button>
+                                    <form method="POST" action="/complaints/<%=complaint._id%>/report?_method=PUT">
+                                        <button class="btn btn-danger report-btn">Report<%= reported ? "ed" : "" %></button>
                                     </form>
                                 </div>
                             <% } %>    

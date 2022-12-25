@@ -1,41 +1,40 @@
 const Complaint = require("../models/complaint");
 const User = require("../models/user")
-const {cloudinary} = require("../cloudinary/cloudinary.js")
-const ExpressErrors  = require("../utils/ExpressErrors");
+const { cloudinary } = require("../cloudinary/cloudinary.js")
+const ExpressErrors = require("../utils/ExpressErrors");
 module.exports.index = async (req, res) => {
-    const {filter = "All", sort = "Highest"} = req.query;
+    const { filter = "All", sort = "Highest" } = req.query;
     let sortSet
     switch (sort) {
-        case "Highest": 
+        case "Highest":
         case undefined: {
-            sortSet = {score: -1}
+            sortSet = { score: -1 }
             break;
         }
         case "Lowest": {
-            sortSet = {score: 1}
+            sortSet = { score: 1 }
             break;
         }
-        case "Newest":{
-            sortSet = {createdAt: -1}
+        case "Newest": {
+            sortSet = { createdAt: -1 }
             break;
         }
-        case "Oldest":{
-            sortSet = {createdAt: 1}
+        case "Oldest": {
+            sortSet = { createdAt: 1 }
             break;
         }
     }
     console.log(sortSet)
-    if(filter != undefined && filter != "All")
-    {
-        const complaints = await Complaint.find({location: req.query.filter}).populate('image').populate('user').sort(sortSet)
+    if (filter != undefined && filter != "All") {
+        const complaints = await Complaint.find({ location: req.query.filter }).populate('image').populate('user').sort(sortSet)
         console.log(complaints)
         res.render("complaints/index.ejs", { complaints, filter, sort })
 
     }
-    else{
+    else {
         console.log(sort)
         const complaints = await Complaint.find({}).populate('image').populate('user').sort(sortSet)
-        res.render("complaints/index.ejs", { complaints ,filter, sort})
+        res.render("complaints/index.ejs", { complaints, filter, sort })
 
     }
 }
@@ -46,11 +45,11 @@ module.exports.newComplaintForm = (req, res) => {
 
 module.exports.addComplaint = async (req, res, next) => {
     const complaint = Complaint(req.body.complaint)
-    const user = await User.findOne({googleID: req.user.id})
+    const user = await User.findOne({ googleID: req.user.id })
     complaint.user = user._id
     complaint.score = 0;
     //complaint.user = req.user._id
-    complaint.image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
+    complaint.image = req.files.map(f => { return { url: f.path, fileName: f.filename } })
     console.log(complaint);
     await complaint.save()
     req.flash("success", "Added a Complaint")
@@ -60,8 +59,7 @@ module.exports.addComplaint = async (req, res, next) => {
 module.exports.showEditPage = async (req, res) => {
     const { id } = req.params;
     const complaint = await Complaint.findById(id).populate('image');
-    if(!complaint)
-    {
+    if (!complaint) {
         req.flash('error', "Cannot not find the complaint you wished to edit")
         res.redirect('/complaints')
     }
@@ -72,7 +70,7 @@ module.exports.editComplaint = async (req, res) => {
     const { id } = req.params;
     console.log(req.body)
     const complaint = await Complaint.findByIdAndUpdate(id, req.body.complaint);
-    const image = req.files.map(f => {return {url: f.path, fileName: f.filename}})
+    const image = req.files.map(f => { return { url: f.path, fileName: f.filename } })
     complaint.image.push(...image)
     console.log(req.body.deleteImages)
     if (req.body.deleteImages) {
@@ -89,6 +87,7 @@ module.exports.editComplaint = async (req, res) => {
 }
 
 module.exports.showAComplaint = async (req, res) => {
+    const user = await User.findOne({ googleID: req.user.id })
     const complaint = await Complaint.findById(req.params.id)
         .populate(
             {
@@ -98,21 +97,34 @@ module.exports.showAComplaint = async (req, res) => {
                 }
             }
         )
-        .populate('user')  
-    if(!complaint)
-    {
+        .populate('user')
+    if (!complaint) {
         req.flash('error', "Cannot not find that complaint")
         res.redirect('/complaints')
     }
-    res.render("complaints/show.ejs", { complaint })
+    console.log(complaint.reportId)
+    let upvoted, downvoted, reported;
+    if(complaint.upvoteId.includes(user._id))
+    {
+        upvoted = true
+    }
+    if(complaint.downvoteId.includes(user._id))
+    {
+        downvoted = true
+    }
+    if(complaint.reportId.includes(user._id))
+    {
+        
+        reported = true
+    }
+    res.render("complaints/show.ejs", { complaint, upvoted, downvoted, reported })
 }
 
 module.exports.deleteComplaint = async (req, res) => {
     const { id } = req.params;
     const complaint = await Complaint.findById(id)
     console.log(complaint)
-    for(let img of complaint.image)
-    {
+    for (let img of complaint.image) {
         cloudinary.uploader.destroy(img.fileName)
     }
     await Complaint.findByIdAndDelete(id)
@@ -120,24 +132,22 @@ module.exports.deleteComplaint = async (req, res) => {
     res.redirect("/complaints")
 }
 
-module.exports.upvote = async(req, res) => {
-    const {id} = req.params;
-    const user = await User.findOne({googleID: req.user.id})
+module.exports.upvote = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({ googleID: req.user.id })
     const complaint = await Complaint.findById(id);
     console.log(complaint.upvoteId)
-    if(complaint.downvoteId.includes(user._id) && !complaint.upvoteId.includes(user._id)){
+    if (complaint.downvoteId.includes(user._id) && !complaint.upvoteId.includes(user._id)) {
         complaint.score += 2;
         let i = complaint.downvoteId.indexOf(user._id);
         complaint.downvoteId.splice(i, 1);
         complaint.upvoteId.push(user._id);
     }
-    else if(!complaint.upvoteId.includes(user._id))
-    {
+    else if (!complaint.upvoteId.includes(user._id)) {
         complaint.score += 1;
         complaint.upvoteId.push(user._id);
     }
-    else
-    {
+    else {
         complaint.score -= 1;
         let i = complaint.upvoteId.indexOf(user._id);
         complaint.upvoteId.splice(i, 1);
@@ -146,27 +156,50 @@ module.exports.upvote = async(req, res) => {
     res.redirect(`/complaints/${id}`);
 
 }
-module.exports.downvote = async(req, res) => {
-    const {id} = req.params;
-    const user = await User.findOne({googleID: req.user.id})
+module.exports.downvote = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({ googleID: req.user.id })
     const complaint = await Complaint.findById(id);
-    if(complaint.upvoteId.includes(user._id) && !complaint.downvoteId.includes(user._id)){
+    if (complaint.upvoteId.includes(user._id) && !complaint.downvoteId.includes(user._id)) {
         complaint.score -= 2;
         let i = complaint.upvoteId.indexOf(user._id);
         complaint.upvoteId.splice(i, 1);
         complaint.downvoteId.push(user._id);
     }
-    else if(!complaint.downvoteId.includes(user._id))
-    {
+    else if (!complaint.downvoteId.includes(user._id)) {
         complaint.score -= 1;
         complaint.downvoteId.push(user._id);
     }
-    else
-    {
+    else {
         complaint.score += 1;
         let i = complaint.downvoteId.indexOf(user._id);
         complaint.downvoteId.splice(i, 1);
     }
     await complaint.save();
+    res.redirect(`/complaints/${id}`);
+}
+
+module.exports.report = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({ googleID: req.user.id })
+    const complaint = await Complaint.findById(id);
+    if (!complaint.reportId.includes(user._id)) {
+        complaint.reportId.push(user._id);
+        complaint.reportCount += 1;
+        if (complaint.reportCount >= 10) {
+            for (let img of complaint.image) {
+                cloudinary.uploader.destroy(img.fileName)
+            }
+            await Complaint.findByIdAndDelete(id)
+            req.flash('success', 'Complaint deleted due to excess reports')
+            res.redirect("/complaints")
+        }
+    }
+    else{
+        complaint.reportCount += 1;
+        let i = complaint.reportId.indexOf(user._id);
+        complaint.reportId.splice(i, 1);
+    }
+    await complaint.save()
     res.redirect(`/complaints/${id}`);
 }

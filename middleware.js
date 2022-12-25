@@ -1,4 +1,3 @@
-//const { campSchema, reviewSchema } = require("./joiValidationSchemas");
 const ExpressErrors = require("./utils/ExpressErrors")
 const Complaint = require("./models/complaint")
 const Comment = require("./models/comment")

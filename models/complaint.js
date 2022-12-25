@@ -13,6 +13,14 @@ const complaintSchema = Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }],
+    reportId: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }],
+    reportCount: {
+        type: Number,
+        default: 0
+    },
     location: String,
     description: String,
     image: [{

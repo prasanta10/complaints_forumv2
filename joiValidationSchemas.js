@@ -22,5 +22,16 @@ const reviewSchema = joi.object(
     }
 )
 
+const complaintSchema = joi.object(
+    {
+        complaint: joi.object({
+            title: joi.string().required(),
+            location: joi.string().required(),
+            description: joi.string().required(),
+            
+        })
+    }
+)
+
 module.exports.campSchema = campSchema
 module.exports.reviewSchema = reviewSchema

@@ -25,3 +25,5 @@ router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(complaints.showEditPage
 
 router.put("/:id/up", isLoggedIn, catchAsync(complaints.upvote))
 router.put("/:id/down", isLoggedIn, catchAsync(complaints.downvote))
+router.put("/:id/report", isLoggedIn, catchAsync(complaints.report))
+
